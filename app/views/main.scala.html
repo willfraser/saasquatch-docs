@@ -1,4 +1,12 @@
-@(title: String, descr: String)(content: Html)
+@(title: String, descr: String)(content: Html)(implicit request: play.api.mvc.Request)
+
+
+@*********************
+ * This is a comment *
+ *********************@   
+ 
+ 
+@if(request.headers.get("X-PJAX").isEmpty){
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -103,10 +111,13 @@
 
         <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
         <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
-        <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-includes/js/swfobject.js?ver=2.2-20120417'></script>
+        <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/vendor/google-code-prettify/prettify.js'></script>
         <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/vendor/modernizr-2.6.2.min.js'></script>
         <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/vendor/bootstrap.min.js'></script>
         
+        <script src="@routes.Assets.at("javascripts/jquery.pjax.js")"></script>
+        <script src="@routes.Assets.at("javascripts/saasquatch-docs.min.js")"></script>
+
     </head>
     
 
@@ -137,7 +148,6 @@
         </header>
         <!-- End Header / Nav -->
 
-
     <div class="container">
 
     <style type="text/css">
@@ -156,36 +166,43 @@
     <!-- Docs nav
     ================================================== -->
     <div class="row" id="docs" style="padding-bottom: 60px;">
-      <div class="span3 docs-sidebar">
-        <ul class="nav nav-list docs-sidenav">
-          <li><a href="/getting-started"><i class="icon-chevron-right"></i>Getting Started</a></li>
-          <li><a href="/how-it-works"><i class="icon-chevron-right"></i>How it works</a></li>
-          <li class="nav-header">Subscription System Integrations</li>
-          <li><a href="/braintree"><i class="icon-chevron-right"></i>Braintree</a></li>
-          <li><a href="/recurly"><i class="icon-chevron-right"></i>Recurly</a></li>
-          <li><a href="/stripe"><i class="icon-chevron-right"></i>Stripe</a></li>
-          <li><a href="/zuora"><i class="icon-chevron-right"></i>Zuora</a></li>
-          <li class="nav-header">Client-Side Setup</li>
-          <li><a href="/app-integration"><i class="icon-chevron-right"></i>Installation</a></li>
-          <li class="nav-header">squatch.js functions</li>
-          <li><a href="/squatchjs#init"><i class="icon-chevron-right"></i>init</a></li>
-          <li><a href="/squatchjs#autofill"><i class="icon-chevron-right"></i>autofill</a></li>
-          <li><a href="/squatchjs#open"><i class="icon-chevron-right"></i>open</a></li>
-          <li><a href="/squatchjs#close"><i class="icon-chevron-right"></i>close</a></li>
-          <li class="nav-header">Best Practices</li>
-          <li><a href="/bestpractices/buttons"><i class="icon-chevron-right"></i>Refer-a-friend buttons</a></li>
-          <li><a href="/bestpractices/speed"><i class="icon-chevron-right"></i>Page Speed</a></li>
-          <li class="nav-header">FAQ</li>
-          <li><a href="/faq"><i class="icon-chevron-right"></i>General</a></li>
-          <li><a href="/faq/pricing"><i class="icon-chevron-right"></i>Pricing</a></li>
-          <li class="nav-header">More</li>
-          <li><a href="http://www.referralsaasquatch.com/terms-of-service"><i class="icon-chevron-right"></i>Terms of Service</a></li>
-          <li><a href="http://www.referralsaasquatch.com/privacy-policy"><i class="icon-chevron-right"></i>Privacy Policy</a></li>
-        </ul>
-      </div>
-        <div class="span9">
+        <div class="span3 docs-sidebar">
+            <ul class="nav nav-list docs-sidenav">
+              <li><a data-pjax href="/getting-started"><i class="icon-chevron-right"></i>Getting Started</a></li>
+              <li><a data-pjax href="/how-it-works"><i class="icon-chevron-right"></i>How it works</a></li>
+              <li class="nav-header">Subscription System Integrations</li>
+              <li><a data-pjax href="/braintree"><i class="icon-chevron-right"></i>Braintree</a></li>
+              <li><a data-pjax href="/recurly"><i class="icon-chevron-right"></i>Recurly</a></li>
+              <li><a data-pjax href="/stripe"><i class="icon-chevron-right"></i>Stripe</a></li>
+              <li><a data-pjax href="/zuora"><i class="icon-chevron-right"></i>Zuora</a></li>
+              <li class="nav-header">Client-Side Setup</li>
+              <li><a data-pjax href="/app-integration"><i class="icon-chevron-right"></i>Installation</a></li>
+              <li class="nav-header">squatch.js functions</li>
+              <li><a data-pjax href="/squatchjs#init"><i class="icon-chevron-right"></i>init</a></li>
+              <li><a data-pjax href="/squatchjs#autofill"><i class="icon-chevron-right"></i>autofill</a></li>
+              <li><a data-pjax href="/squatchjs#open"><i class="icon-chevron-right"></i>open</a></li>
+              <li><a data-pjax href="/squatchjs#close"><i class="icon-chevron-right"></i>close</a></li>
+              <li class="nav-header">Best Practices</li>
+              <li><a data-pjax href="/bestpractices/buttons"><i class="icon-chevron-right"></i>Refer-a-friend buttons</a></li>
+              <li><a data-pjax href="/bestpractices/speed"><i class="icon-chevron-right"></i>Page Speed</a></li>
+              <li class="nav-header">FAQ</li>
+              <li><a data-pjax href="/faq"><i class="icon-chevron-right"></i>General</a></li>
+              <li><a data-pjax href="/faq/pricing"><i class="icon-chevron-right"></i>Pricing</a></li>
+              <li class="nav-header">More</li>
+              <li><a href="http://www.referralsaasquatch.com/terms-of-service"><i class="icon-chevron-right"></i>Terms of Service</a></li>
+              <li><a href="http://www.referralsaasquatch.com/privacy-policy"><i class="icon-chevron-right"></i>Privacy Policy</a></li>
+            </ul>
+        </div>
+      
+        <!-- This is the main content area, and it is set up for PJAX  -->
+        <div class="span9" id="pjax-container">
+}
             @content
+            
+@if(request.headers.get("X-PJAX").isEmpty){
         </div><!-- end of right column -->
+        
+        
     </div><!-- end of main content #docs.row -->
 
     </div><!-- end of main content .container -->
@@ -303,8 +320,6 @@
     
     </script>
 
-
-
     <!-- Drip -->
     <script type="text/javascript">
       var _dcq = _dcq || [];
@@ -320,16 +335,7 @@
       })();
     </script>
 
- 
-    <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/plugins.js'></script>
-    <script type='text/javascript'>
-    /* <![CDATA[ */
-    var AjaxHelper = {"blog_url":"http:\/\/www.referralsaasquatch.com\/wp-content\/themes\/disillusion\/template-news.php","portfolio_url":"http:\/\/www.referralsaasquatch.com\/wp-content\/themes\/disillusion\/template-portfolio.php","portfolio2_url":"http:\/\/www.referralsaasquatch.com\/wp-content\/themes\/disillusion\/template-portfolio2.php","ajaxurl":"http:\/\/www.referralsaasquatch.com\/wp-admin\/admin-ajax.php"};
-    var pt_settings = {"base_color":"","google_maps_circle_color":"#fb8047","google_maps_landscape_color":"#ffffff","google_maps_water_color":"#d4d4d4","portfolio_items_page":"5","blog_items_page":"16","pt_google_maps_latitude_1":"33.707126","pt_google_maps_longitude_1":"-4.135499","pt_google_maps_title_popover_1":"","pt_google_maps_text_popover_1":"","pt_google_maps_latitude_2":"38.707126","pt_google_maps_longitude_2":"-4.135499","pt_google_maps_title_popover_2":"","pt_google_maps_text_popover_2":"","pt_google_maps_latitude_3":"33.707126","pt_google_maps_longitude_3":"-4.135499","pt_google_maps_title_popover_3":"","pt_google_maps_text_popover_3":"","pt_google_maps_latitude_4":"33.707126","pt_google_maps_longitude_4":"-4.135499","pt_google_maps_title_popover_4":"","pt_google_maps_text_popover_4":""};
-    /* ]]> */
-    </script>
-    <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/main.js'></script>
-    <script type='text/javascript' src='http://www.referralsaasquatch.com/wp-content/themes/disillusion/js/vendor/google-code-prettify/prettify.js'></script>
 
 </body>
 </html>
+}

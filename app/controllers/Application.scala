@@ -5,11 +5,11 @@ import play.api.mvc._
 
 object Application extends Controller {
 
-  def index = Action {
+  def index = Action { implicit request =>
     Ok(views.html.index())
   }
   
-  def robots = Action {
+  def robots = Action { implicit request =>
       if(Play.current.configuration.getBoolean("application.robots").getOrElse(false)){
           Redirect(routes.Assets.at("yes-robots.txt"))
       }else{
@@ -18,7 +18,7 @@ object Application extends Controller {
   }
 
   
-  def page(slug:String) = Action {
+  def page(slug:String) = Action { implicit request =>
     slug match {
         case "how-it-works"  => Ok(views.html.howItWorks())
         
