@@ -1,10 +1,10 @@
 @main(
-    "Recurly Integration",
-    "Referral SaaSquatch’s Recurly integration uses Recurly’s Push Notifications and Recurly's API to automatically track subscriptions and give people discounts. This guide will walk you through how to set up this integration."
+    "API / Custom Integration",
+    "Referral SaaSquatch’s API integration is suitable for add a customer referral program to any subscription business that does not use one of our default supported payment systems. This guide will walk you through how to set up this integration."
 ) {
     <section id="recurly">
         <div class="page-header">
-            <h1>Recurly Integration</h1>
+            <h1>API / Custom Integration</h1>
         </div>
         
         <p class="lead">
@@ -16,32 +16,60 @@
         
         <ul class="unstyled">
             <li>
-                <b>Test mode vs. live mode</b> - We let you test your referral program using a Recurly Sandbox account and fake credit cards before deploying to your production environment. To set up test mode, just follow this guide using 1) your Recurly Sandbox account and 2) your test mode tenant_alias (it starts with “test_”)
+                <b>Test mode vs. live mode</b> - We let you test your referral program in your staging evironment or your payment system sandbox before deploying to your production environment. To set up test mode, just follow this guide using your test mode tenant_alias (it starts with “test_”)
             </li>
         </ul>
 
         <hr/>
-        <h3><span class="label label-success">Step 1</span> Add your Recurly API Key in the SaaSquatch Portal</h3>
+        
+        <h3><span class="label label-success">Step 1</span>Install squatch.js inside your app</h3>
+        
+        <p>API integrations requires you to first install squatch.js with signed widget requests enabled.</p>
+        
+        
+        
+        <h3><span class="label label-success">Step 2</span>Make an API call when accounts change</h3>
         
         <p>
-        We connect to the Recurly API using your Recurly API key. This lets us automatically apply discounts to people’s accounts.
+        The Referral SaaSquatch referral API tracks the status of your users accounts and through edge detection is able to establish referral conenctions. 
         </p>
+        
+        Notifiy Referral SaaSquatch when users enter all of the applicable following states.
         <ol>
-            <li><a href="https://app.recurly.com/login">Login to Recurly</a> and click on “Developer-> API Credentials”. <b>Copy the “API key”</b>.</li>
-            <li><a href="http://app.referralsaasquatch.com">Login to Referral SaaSquatch</a> and go to “Setup” and click “Authorize”. <b>Paste in your Recurly API key that you just copied</b>, and press connect.</li>
-            <li>Repeat this process for both your <b>test</b> and <b>live</b> accounts.</li>
+            <li>Trail Starts - TRIAL</li>
+            <li>Subscribed to Free Account - FREE<li>
+            <li>Subscribed to paying account - PAID</li>
+            <li>Canceled subscription - CANCELLED</li>
         </ol>
-        <p class="muted">
-            <b>Note:</b> It is not required to setup a test environment but it will make testing easier for you.
-        </p>
+        
+        <h4>Example</h4>
+            <pre class="prettyprint lang-html">
+                [POST]		/api/v1/{TENANT_ALIAS}/accountsync  Content-type: (application/json)
+            </pre>
+
+            <pre class="prettyprint lang-html">
+                Body:
+                {
+                id: “a1234”, // required
+                currency: “USD”, // optional, defaults to ‘USD’, ISO 4217 Standard
+                subscription: {
+                	status: PAID, //TRIAL/FREE/PAID/CANCELLED
+                	value: 99.99,
+                	billingIntervalType: “days”,
+                	billingIntervalValue: 30
+                },
+                referral: { // Optional
+                	code: “3j033r”
+                }
+                }
+            </pre>
+    
         
         <hr/>
-        <h3><span class="label label-success">Step 2</span> Set up Recurly to forward Push Notifications to SaaSquatch</h3>
+        <h3><span class="label label-success">Step 3</span>Check user status before billing</h3>
         
         <p>
-        Referral SaaSquatch uses Recurly push notifications as triggers to know when accounts need to be updated. If you’re already using push 
-        notifications then you’ll have to set up push notification forwarding. To set up Recurly to forward Push Notifications to us, you just need to 
-        set our Push Notification URL as the endpoint in the Recurly portal.
+            Before 
         </p>
         <ol>
             <li><a href="http://app.referralsaasquatch.com">Login to Referral SaaSquatch</a> and go to “Setup”. <b>Copy the URL labelled Push Notification URL</b>. (it should look like https://app.referralsaasquatch.com/recurly/{tenant_alias}/webhook)</li>
