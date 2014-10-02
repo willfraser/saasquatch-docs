@@ -36,7 +36,7 @@
                     <li><label class="checkbox"><input type="checkbox"> Make sure a user has been identified to Squatch.js before checkout</label></li>
                     <li><label class="checkbox"><input type="checkbox"> <a href="/api/methods#list_balances">Lookup remaining free time</a> during checkout</label></li>
                     <li><label class="checkbox"><input type="checkbox"> Adjust a user's bill according to the amount of free time they've earned and the preiod they are being billed for.</label></li>
-                    <li><label class="checkbox"><input type="checkbox"> Mark free time as redeemed by <a href="/api/methods#debit_reward">redeeming a reward</a></label></li>
+                    <li><label class="checkbox"><input type="checkbox"> Mark free time as redeemed by <a href="/api/methods#debit_balance">redeeming a reward</a></label></li>
                     <li><label class="checkbox"><input type="checkbox"> <a href="/api/methods#account_sync">Update the account status</a> for new accounts</label></li>
                     <li><label class="checkbox"><input type="checkbox"> <span class="label">Testing</span> Click a referral link and make your first purchase. Your bill should be adjusted accordingly. <a href="https://app.referralsaasquatch.com/">Login</a> to your SaaSquatch account
                         to see the new referral in the news feed.
@@ -90,11 +90,11 @@
         invoices. Add a line item to the invoice for the discount or use an internal code to identify the referral credit.</p>
 
         
-        <h5>Step 3 - Mark credit as used</h5>
+        <h5>Step 3 - Redeem Free Time</h5>
         
-        <p>Update the account's balance in SaaSquatch once credit has been used. This lets SaaSquatch display a user's up-to-date account balance and lets us track referral credit usage.
+        <p>Update the account's balance in SaaSquatch once free time has been used. This lets SaaSquatch display a user's up-to-date amount of free time and lets us track free time usage.
 
-        Use the <a href="/api/methods#debit_balance">Debit Account Balance</a> endpoint to mark the credit as used.</p>
+        Use the <a href="/api/methods#debit_balance">Redeem Reward</a> endpoint to mark the free time as redeemed.</p>
 
         <table class="table">
             <thead>
